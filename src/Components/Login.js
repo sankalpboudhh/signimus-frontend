@@ -1,15 +1,12 @@
 import { Box, Button, FormControl, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userDetails } from "../user/userSlice";
 import axios from "axios";
-import config from "../App";
 
 function Login() {
   const navigate = useNavigate();
-
-  const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState();
@@ -17,7 +14,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const isLoggedIn = await loginUser({
+    await loginUser({
       username,
       password,
     });
