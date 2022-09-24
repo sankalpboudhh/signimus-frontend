@@ -1,20 +1,16 @@
 import { Box, Button, FormControl, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { userDetails } from "../user/userSlice";
+import axios from "axios";
+import config from "../App";
 
-async function loginUser(credentials) {
-  return fetch("http://localhost:1337/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-    // }).then((data) => data.json());
-  }).then((data) => console.log(data));
-}
-
-function Login({ setToken }) {
+function Login() {
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -25,7 +21,23 @@ function Login({ setToken }) {
       username,
       password,
     });
+
     navigate("/Hello");
+  };
+
+  const loginUser = async (credentials) => {
+    const costomConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post(
+      "http://localhost:1337/login",
+      credentials,
+      costomConfig
+    );
+    console.log("From Login.js", res.data);
+    dispatch(userDetails(res.data));
   };
 
   return (

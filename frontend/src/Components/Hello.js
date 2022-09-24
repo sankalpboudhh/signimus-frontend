@@ -1,11 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function Hello() {
+export function Hello() {
+  const user = useSelector((state) => state.userReducer.user);
+  console.log("from hello.js", user);
+
   return (
     <div>
-      <h1>Hello</h1>
+      <div>
+        <h1>Hello</h1>
+        <h1>{user.firstname}</h1>
+      </div>
     </div>
   );
 }
-
-export default Hello;

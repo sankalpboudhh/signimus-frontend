@@ -22,7 +22,6 @@ router.post("/login", async (req, res, next) => {
     try {
       if (err || !user) {
         const error = new Error("An error occurred.");
-
         return next(error);
       }
 
@@ -31,9 +30,14 @@ router.post("/login", async (req, res, next) => {
 
         const body = { _id: user._id, username: user.username };
         const token = jwt.sign({ user: body }, "TOP_SECRET");
-        console.log("token :", token);
-        return res.json({ token });
-        // return res.send("Logged In");
+
+        const sendData = {
+          firstname: user.firstname,
+          lastname: user.lastname,
+          token: { token },
+        };
+        console.log("backend sendData :", sendData);
+        return res.json(sendData);
       });
     } catch (error) {
       return next(error);
