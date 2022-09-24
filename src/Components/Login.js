@@ -29,7 +29,7 @@ function Login() {
       },
     };
     const res = await axios.post(
-      "http://localhost:1337/login",
+      process.env.REACT_APP_API_ENDPOINT + "/login",
       credentials,
       costomConfig
     );

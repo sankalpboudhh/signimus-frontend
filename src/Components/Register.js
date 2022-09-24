@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 async function signupUser(credentials) {
-  return fetch("http://localhost:1337/signup", {
+  return fetch(process.env.REACT_APP_API_ENDPOINT + "/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
